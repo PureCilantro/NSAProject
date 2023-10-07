@@ -7,10 +7,7 @@
   p.case { clear: both; border-top: 0px; color: #fff; }
 </style>
 <link rel="stylesheet" type="text/css" href="x3dom.css" />
-<script src="TestMission.js" type="text/javascript"></script>
 </head>
-
-<body onload="startUpdate()">
 
 <h1>Prototype Web Visualization of a GMAT Generated Trajectory</h1>
 
@@ -26,24 +23,40 @@
                 <Sphere radius='0.65'/>
                 </Shape>
             </Transform>
-        <Viewpoint fieldOfView="3" position="6 5.5 6.5" orientation="1 -1 0 -0.785" description=""/>
+        <Viewpoint fieldOfView="0.785398" position="6 5.5 6.5" orientation="1 -1 0 -0.785" description=""/>
         </Scene>
     </X3D>
 </p>
 
 <p class="case" align="center">
+<body onload="startUpdate()">
 
 <p><H2><p id="demo"></p></H2></p>
+<input type="file" id="fileInput">
 
-<script>
+<script>   // Parse the trajectory in the mission file.
+    
+    //var mission = JSON.parse(trajectory);    // Parse the trajectory in the mission file.
 
-    var mission = JSON.parse(trajectory) ;    // Parse the trajectory in the mission file.
+    var fileURL = 'TestMission.json'; // Replace with the actual URL of the file on your server
+    var mission;
+    fetch(fileURL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch the file.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            mission = data;
+        })
+    
     var step = 0 ;
     
     function startUpdate() {
 
         var segIndex = 0 ;   // segment counter
-        var orbitCoords = "" ;
+        var orbitCoords = "" ;        
     
         for (var segment in mission.coordinates) {
             var s = document.createElement('Shape');            // Shape Node
@@ -80,14 +93,27 @@
             t.setAttribute("translation", pos[0] + " " + pos[1] + " " + pos[2] );
             t.setAttribute("id", 'satPosition');
         
-        var satModel = document.createElement('Inline') ;
-		    satModel.setAttribute('url', "TrianaSatellite.x3d") ;
-			t.appendChild(satModel) ;
+        var satellite = document.createElement('Shape');        // Shape Node for satellite
+            satellite.setAttribute("id", "satellite");
+
+        var satapp = document.createElement('Appearance');     // Appearance Node
+        var satmat = document.createElement('Material');       // Material Node
+            satmat.setAttribute("id", "SatMat");
+            satmat.setAttribute("diffuseColor", 0 + " " + 1 + " " + 0);
+            satmat.setAttribute("emissiveColor", 0 + " " + 1 + " " + 0.3);
+            satapp.appendChild(satmat);
+            satellite.appendChild(satapp);
+        
+        var satmodel = document.createElement('Box');
+        satmodel.setAttribute("size", 0.2 + " " + 0.2 + " " + 0.2);
+        // satellite.setAttribute("id", "sat1");
+        satellite.appendChild(satmodel);
+        t.appendChild(satellite) ;
 
         var objsat = document.getElementById('theEarth');
             objsat.appendChild(t);
 
-        setInterval(function () {updatePosition() }, 50);
+        playback = setInterval(function () {updatePosition() }, 100);
     };
 
     function updatePosition() {
@@ -96,23 +122,28 @@
         var Ypos = pos[1] ;
         var Zpos = pos[2] ;
         document.getElementById('satPosition').setAttribute('translation', Xpos + " " + Ypos + " " + Zpos);
-        console.log("x  " + Xpos + "  y  " + Ypos + "  z  " + Zpos) ;
+        //console.log("x  " + Xpos + "  y  " + Ypos + "  z  " + Zpos) ;
 
         document.getElementById("demo").textContent = "Date:  " + mission.coordinates[step].Date + "         Time: " + mission.coordinates[step].Time;
-        
-        step = step + 1 ;
+
+        if (step == Object.keys(mission.coordinates).length - 1) {
+            stopPlayback();
+        }else{
+            step = step + 1 ;
+        }        
     }; 
         
-    function resetPosition() {
-    step = 0 ;
-    pos = [mission.coordinates[step].X/10000, mission.coordinates[step].Y/10000, mission.coordinates[step].Z/10000] ;
-        var Xpos = pos[0] ;
-        var Ypos = pos[1] ;
-        var Zpos = pos[2] ;
-        document.getElementById('satPosition').setAttribute('translation', Xpos + " " + Ypos + " " + Zpos);
-        
-        setInterval(function () {updatePosition() }, 60);
+    function resetPosition() {  
+        step = 0 ;
+        playback = setInterval(function () {updatePosition() }, 100);
     };
+
+    function stopPlayback() {
+        clearInterval(playback);
+    }
+
+
+    
 </script>
 <script type="text/javascript" src="x3dom.js"></script>
 <input type="button" id="reset" value="Reset" onclick="resetPosition();" />
