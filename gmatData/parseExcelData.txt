@@ -1,0 +1,47 @@
+Sub parseData()
+    Dim rgDat As Range       ' Range object for the trajectory data sheet
+    Dim aRecord As String    ' A string variable the next line of data
+    Dim aDate As String      ' String variable for the date
+    Dim aTime As String      ' String variable for the time
+    Dim aX As String         ' String variable for the X coordinate
+    Dim aY As String         ' String variable for the Y coordinate
+    Dim aZ As String         ' String variable for the Z coordinate
+    Dim i As Integer         ' Row counter
+    
+    Set rgDat = ThisWorkbook.Worksheets("Hoja1").Range("A2")
+    
+    i = 1
+    While rgDat.Cells(i).Value <> ""
+        aRecord = ""
+        aDate = ""
+        aTime = ""  ' Reset variables.
+        aX = ""
+        aY = ""
+        aZ = ""
+    
+        aRecord = rgDat.Cells(i).Value
+        aDate = Mid(aRecord, 1, 12)
+        aTime = Mid(aRecord, 13, 12)      ' Parse the data.
+        aX = Mid(aRecord, 28, 15)
+        aY = Mid(aRecord, 54, 15)
+        aZ = Mid(aRecord, 80, 15)
+        
+        Call writeJSON(aDate, aTime, aX, aY, aZ, i)
+        
+        i = i + 1
+    Wend
+            
+End Sub
+Sub writeJSON(aDate, aTime, x, y, z As String, n As Integer)
+    Dim rgJSON As Range
+    
+    Set rgJSON = ThisWorkbook.Worksheets("JSON").Range("A2")
+    
+    rgJSON.Cells(n).Value = Chr(39) + "{" & """" & "Date" & """" & ":" & """" & _
+                            Trim(aDate) & """" & "," _
+                            & """" & "Time" & """" & ":" & """" & Trim(aTime) _
+                            & """" & "," _
+                            & """" & "X" & """" & ":" & Trim(x) & "," _
+                            & """" & "Y" & """" & ":" & Trim(y) & "," _
+                            & """" & "Z" & """" & ":" & Trim(z) & "},' +"
+End Sub
