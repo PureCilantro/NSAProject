@@ -23,6 +23,7 @@
                 <Sphere radius='0.65'/>
                 </Shape>
             </Transform>
+        <directionalLight id="directional" direction='1 0 0' on ="TRUE" intensity='1.0' shadowIntensity='0.1' ambientIntensity='0.333'> </directionalLight> 
         <Viewpoint fieldOfView="0.785398" position="6 5.5 6.5" orientation="1 -1 0 -0.785" description=""/>
         </Scene>
     </X3D>
@@ -32,7 +33,6 @@
 <body onload="startUpdate()">
 
 <p><H2><p id="demo"></p></H2></p>
-<input type="file" id="fileInput">
 
 <script>   // Parse the trajectory in the mission file.
     
@@ -88,7 +88,8 @@
         }
         
         //Create a satellite model
-        var pos = [mission.coordinates[0].X/10000, mission.coordinates[0].Y/10000, mission.coordinates[0].Z/10000] 
+
+        /*<var pos = [mission.coordinates[0].X/10000, mission.coordinates[0].Y/10000, mission.coordinates[0].Z/10000] 
         var t = document.createElement('Transform');
             t.setAttribute("translation", pos[0] + " " + pos[1] + " " + pos[2] );
             t.setAttribute("id", 'satPosition');
@@ -108,7 +109,22 @@
         satmodel.setAttribute("size", 0.2 + " " + 0.2 + " " + 0.2);
         // satellite.setAttribute("id", "sat1");
         satellite.appendChild(satmodel);
-        t.appendChild(satellite) ;
+        t.appendChild(satellite) ;*/
+
+        var pos = [mission.coordinates[0].X/10000, mission.coordinates[0].Y/10000, mission.coordinates[0].Z/10000] 
+
+        var t = document.createElement('Transform');
+            t.setAttribute("translation", pos[0] + " " + pos[1] + " " + pos[2] );
+            t.setAttribute("id", 'satPosition');
+            t.setAttribute("scale", 0.07 + " " + 0.07 + " " + 0.07) ;
+
+        var satModel = document.createElement('Inline') ;
+		satModel.setAttribute('url', "TrianaSatellite.x3d") ;
+		
+		t.appendChild(satModel) ;
+	
+		var objsat = document.getElementById('theEarth');
+        objsat.appendChild(t);
 
         var objsat = document.getElementById('theEarth');
             objsat.appendChild(t);
@@ -148,3 +164,4 @@
 <script type="text/javascript" src="x3dom.js"></script>
 <input type="button" id="reset" value="Reset" onclick="resetPosition();" />
 </body>
+</html>
