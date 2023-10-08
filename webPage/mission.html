@@ -39,7 +39,7 @@
                     throw new Error('No page specified');
                 }
                 
-                const data = await fetch(`/pages/${pageName}.html`);
+                const data = await fetch(`pages/${pageName}.html`);
                 const html = await data.text();
 
                 domPage.innerHTML = html;
