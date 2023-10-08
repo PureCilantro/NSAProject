@@ -1,0 +1,44 @@
+STS-31 was the 35th mission of NASA's Space Shuttle program
+The purpose of this mission was the deployment of the Hubble Space Telescope
+
+For this mission we can star with publicly available data from the mission:
+
+Mission duration	5 days, 1 hour, 16 minutes, 6 seconds (achieved)
+Distance travelled	3,328,466 km (2,068,213 mi)
+Orbits completed	80
+
+Spacecraft properties
+Spacecraft	Space Shuttle Discovery
+Launch mass	117,586 kg (259,233 lb)
+Landing mass	85,947 kg (189,481 lb)
+Payload mass	11,878 kg (26,187 lb)
+
+Launch date	April 24, 1990, 12:33:51 UTC
+Launch site	Kennedy Space Center, LC-39B
+Coordinates: 28°37′37.86″ N, 80°37′15.22″ W	
+Decimal Notation: 28.627183°, -80.620895
+
+Orbital parameters
+
+Reference system	Geocentric orbit
+Regime	Low Earth orbit
+Perigee altitude	613 km (381 mi)
+Apogee altitude		615 km (382 mi)
+Inclination	28.45°
+Period	96.70 minutes
+
+With some clever interpretation we can get a starter cartesian vector to create the inicial conditions
+X: 	911.3370299999976	km
+Y: 	-5517.424414000007	km
+Z: 	3052.398015999996	km
+VX: 	0.1614517780235277	km/s
+VY: 	-6.694529164590006	km/s
+VZ: 	-3.524426888530754	km/s
+
+Then with the information of the separation event we can create another cartesian vector to represent
+X:	-6875.710977616145	km
+Y:	3348.720155786775	km
+Z:	3315.656402279826	km
+VX:	0.1645177802353799	km/s
+VY:	-6.694529164592544	km/s
+VZ:	3.524426888530758	km/s
