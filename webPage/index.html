@@ -6,6 +6,7 @@
     <title>α Orbital</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/stars.css">
 </head>
 <body>
 
@@ -13,6 +14,21 @@
         <h1><span class="alpha">α</span> Orbital</h1>
         <p>An open data repository for space missions visualization</p>
         <button id="heroBtn">explore <span class="arrow">></span></button>
+
+        <div class="night">
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+        </div>
     </div>
 
     <div id="missionSection" class="missionSection">
@@ -91,7 +107,7 @@
             domCard.addEventListener('mouseleave', hideDesc);
             domCard.addEventListener('click', () => {
                 if (page) {
-                    location.assign(`mission.html?m=${page}`);
+                    location.assign(`/mission.html?m=${page}`);
                 }
             });
 

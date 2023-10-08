@@ -30,10 +30,10 @@
     
     //var mission = JSON.parse(trajectory);    // Parse the trajectory in the mission file.
     //var mission;
-    const selectedItem = localStorage.getItem('selectedItem');
+    //const selectedItem = localStorage.getItem('selectedItem');
 
-    const fileURL = selectedItem;
-    //const fileURL = 'HohmanTransfer.json';
+    //const fileURL = selectedItem;
+    const fileURL = 'Resources/missions/HubbleOrbit.json';
 
     async function fetchLocalFile(filePath) {
         try {
@@ -47,7 +47,7 @@
           return data;
 
         } catch (error) {
-          console.error('Fetch error:', error);
+            mission = fetchLocalFile(fileURL);
         }
     }
       
@@ -124,8 +124,8 @@
         var t = document.createElement('Transform');
             t.setAttribute("translation", pos[0] + " " + pos[1] + " " + pos[2] );
             t.setAttribute("id", 'satPosition');
-            //t.setAttribute("scale", 0.0005 + " " + 0.0005 + " " + 0.0005) ;   //huble
-            t.setAttribute("scale", 0.07 + " " + 0.07 + " " + 0.07) ;           //Triana
+            t.setAttribute("scale", 0.0005 + " " + 0.0005 + " " + 0.0005) ;   //huble
+            //t.setAttribute("scale", 0.07 + " " + 0.07 + " " + 0.07) ;           //Triana
 
         /*var satellite = document.createElement('Shape');        // Shape Node for satellite
             satellite.setAttribute("id", "satellite");
@@ -146,7 +146,7 @@
 
         var satModel = document.createElement('Inline') ;
 		//satModel.setAttribute('url', "hubble.x3d") ;
-		satModel.setAttribute('url', "spacecraftModels/hubble.x3d") ;
+		satModel.setAttribute('url', "Resources/spacecraftModels/hubble.x3d") ;
 		
 		t.appendChild(satModel) ;
 	
@@ -193,6 +193,7 @@
 <script type="text/javascript" src="x3dom.js"></script>
 <div>
     <input class="button" type="button" id="reset" value="Reset" onclick="resetPosition();" />
+    <input class="button" type="button" id="goBack" value="Go back" onclick="goBack();" />
 </div>
 </body>
 </html>

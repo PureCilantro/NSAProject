@@ -1,15 +1,18 @@
 .hero {
+    position: relative;
     height: 100%;
     padding: 1px;
-    background-color: var(--dark-blue);
     color: white;
 }
 
 .hero h1 {
+    position: relative;
+    display: block;
     margin: 8rem auto 5rem auto;
     width: fit-content;
     font-size: 124px;
     font-family: 'Kanit', sans-serif;
+    z-index: 10;
 }
 
 .hero h1 .alpha {
@@ -17,11 +20,13 @@
 }
 
 .hero p {
+    position: relative;
     width: 80%;
     margin: 3rem auto;
     text-align: center;
     font-size: 24px;
     font-family: 'Kanit', sans-serif;
+    z-index: 1;
 }
 
 .hero button {
@@ -37,6 +42,7 @@
     font-family: 'Kanit', sans-serif;
     transition-property: filter;
     transition-duration: 0.2s;
+    z-index: 1;
 }
 
 .hero button .arrow {

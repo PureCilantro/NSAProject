@@ -1,0 +1,2 @@
+{"routes":[{"file":"Resources/missions/DiscoveryLaunch.json","model":"Resources/spacecraftModels/shuttle.x3d"},
+{"file":"Resources/missions/HubbleOrbit.json","model":"Resources/spacecraftModels/hubble.x3d"}]}

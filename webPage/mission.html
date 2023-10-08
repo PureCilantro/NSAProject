@@ -27,7 +27,7 @@
         const domSidebar = document.getElementById('sidebar');
         const domSidebarToggle = document.getElementById('sidebarToggle');
         const domMainContainer = document.getElementById('mainContainer');
-        const domTTSBtn = document.getElementById('ttsBtn')
+        const domTTSBtn = document.getElementById('ttsBtn');
 
         async function fillPage() {
             const domPage = document.getElementById('content');
@@ -68,6 +68,12 @@
                 if (page && page == pageName) {
                     domItem.classList.add('selected');
                     document.getElementsByTagName('title')[0].textContent = d.title;
+
+                    // Because of this fillSidebarMissionData() must be called after fillPage()
+                    const domMainImg = document.getElementsByClassName('mainImg')[0];
+                    domMainImg.src = `assets/img/${d.img}`;
+                    const domVisualizeBtn = document.getElementsByClassName('visualizeBtn')[0];
+                    domVisualizeBtn.addEventListener('click', () => location.assign(`missionVisualizer/visualizer.html?m=${page}`));
                 }
 
                 domItem.appendChild(domLink);
@@ -115,9 +121,9 @@
 
         let tts;
 
-        fillSidebarMissionData();
         fillPage().then(() => {
             tts = initializeTTS();
+            fillSidebarMissionData();
         });
 
         domSidebarToggle.addEventListener('click', toggleSidebar);
