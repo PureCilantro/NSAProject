@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-<title>Test Trajectory from GMAT</title>
+<title>Test Trajectory</title>
     <meta name="author" content="Troyanos alpha">
 <link rel="stylesheet" type="text/css" href="x3dom.css" />
 </head>
@@ -18,7 +18,7 @@
                 </Shape>
             </Transform>
         <directionalLight id="directional" direction='1 0 0' on ="TRUE" intensity='1.0' shadowIntensity='0.1' ambientIntensity='0.333'> </directionalLight> 
-        <Viewpoint fieldOfView="1" position="0 0 7" orientation="0 0 0 0" description=""/>
+        <Viewpoint fieldOfView="1.5" position="0 0 7" orientation="0 0 0 0" description=""/>
         </Scene>
     </X3D>
 </p>
@@ -28,17 +28,54 @@
 <script>   // Parse the trajectory in the mission file.
     
     //var mission = JSON.parse(trajectory);    // Parse the trajectory in the mission file.
+    //var mission;
+    const fileURL = 'HohmanTransfer.json';
 
-    var fileURL = 'HohmanTransfer.json'; 
-    var mission;
-    fetch(fileURL)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            mission = data;
-        })
-    
+    async function fetchLocalFile(filePath) {
+        try {
+          const response = await fetch(filePath);
+      
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+      
+          const data = await response.json();
+          return data;
+
+        } catch (error) {
+          console.error('Fetch error:', error);
+        }
+    }
+      
+    fetchLocalFile(fileURL)
+        .then((data) => {
+          mission = data;
+        });
+      
+
+    async function loadMissionFile(){
+         
+        /*fetch(fileURL)
+            .then(response => {
+                data = response.json();
+            })
+            .then(data => {
+                mission = data;
+            })*/
+            try {
+                const response = await fetch(fileURL); 
+                if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                return data;
+
+              } catch (error) {
+                console.error('Fetch error:', error);
+              }
+    }
+
     var step = 0 ;
     
     function InitializeOrbiter() {
@@ -116,7 +153,7 @@
         var objsat = document.getElementById('theEarth');
             objsat.appendChild(t);
 
-        setTimeout(() => {startPlayback()}, 5000);
+        setTimeout(() => { startPlayback(); }, 1000);
     };
 
     function startPlayback() {
@@ -143,8 +180,8 @@
     }; 
         
     function resetPosition() {  
-        document.getElementById("playbackSlider").value = 0 ;
-        setTimeout(() => {startPlayback()}, 5000);
+        step = 0 ;
+        setTimeout(() => { startPlayback(); }, 1000);
     };
 
     function stopPlayback() {
@@ -152,14 +189,14 @@
         clearInterval(playback);
     }
 
+    function startPlayback() {
+        playback = setInterval(function () {updatePosition() }, 100);
+    }
 
-    
 </script>
 <script type="text/javascript" src="x3dom.js"></script>
-<div class="slidecontainer">
-    <p><H3><p id="demo"></p></H3></p>
-    <input type="button" id="reset" value="Reset" onclick="resetPosition();" />
-    <input type="range" min="0" max="169" value="0" class="slider" id="playbackSlider">
+<div>
+    <input class="button" type="button" id="reset" value="Reset" onclick="resetPosition();" />
 </div>
 </body>
 </html>
