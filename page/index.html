@@ -6,7 +6,7 @@
 </head>
 
 <p class="case"> 
-    <X3D xmlns="http://www.web3d.org/specifications/x3d-namespace" showStat="false" showLog="false" x="0px" y="0px" width="1400px" height="600px">
+    <X3D xmlns="http://www.web3d.org/specifications/x3d-namespace" showStat="false" showLog="false" x="0px" y="0px" width="1350px" height="570px">
         <Scene>
         <background DEF='bgnd' transparency='0' skyColor='0.0 0.0 0.0'/></background>
             <Transform id="theEarth" translation="0 0 0">
@@ -18,20 +18,18 @@
                 </Shape>
             </Transform>
         <directionalLight id="directional" direction='1 0 0' on ="TRUE" intensity='1.0' shadowIntensity='0.1' ambientIntensity='0.333'> </directionalLight> 
-        <Viewpoint fieldOfView="0.785398" position="6 5.5 6.5" orientation="1 -1 0 -0.785" description=""/>
+        <Viewpoint fieldOfView="1" position="0 0 7" orientation="0 0 0 0" description=""/>
         </Scene>
     </X3D>
 </p>
 
 <body onload="InitializeOrbiter()">
 
-<p><H2><p id="demo"></p></H2></p>
-
 <script>   // Parse the trajectory in the mission file.
     
     //var mission = JSON.parse(trajectory);    // Parse the trajectory in the mission file.
 
-    var fileURL = 'HubbleOrbit.json'; 
+    var fileURL = 'HohmanTransfer.json'; 
     var mission;
     fetch(fileURL)
         .then(response => {
@@ -44,6 +42,8 @@
     var step = 0 ;
     
     function InitializeOrbiter() {
+
+        //document.getElementById("playbackSlider").disabled = true;
 
         var segIndex = 0 ;   // segment counter
         var orbitCoords = "" ;        
@@ -84,7 +84,8 @@
         var t = document.createElement('Transform');
             t.setAttribute("translation", pos[0] + " " + pos[1] + " " + pos[2] );
             t.setAttribute("id", 'satPosition');
-            t.setAttribute("scale", 0.05 + " " + 0.05 + " " + 0.05) ;
+            //t.setAttribute("scale", 0.0005 + " " + 0.0005 + " " + 0.0005) ;   //huble
+            t.setAttribute("scale", 0.07 + " " + 0.07 + " " + 0.07) ;           //Triana
 
         /*var satellite = document.createElement('Shape');        // Shape Node for satellite
             satellite.setAttribute("id", "satellite");
@@ -103,8 +104,9 @@
         satellite.appendChild(satmodel);
         t.appendChild(satellite) ;*/
 
-        var satModel = document.createElement('Inline') ;
-		satModel.setAttribute('url', "hubble.x3d") ;
+        var satModel = document.createElement('unsafe-inline') ;
+		//satModel.setAttribute('url', "hubble.x3d") ;
+		satModel.setAttribute('url', "TrianaSatellite.x3d") ;
 		
 		t.appendChild(satModel) ;
 	
@@ -114,10 +116,15 @@
         var objsat = document.getElementById('theEarth');
             objsat.appendChild(t);
 
-        playback = setInterval(function () {updatePosition() }, 5000);
+        setTimeout(() => {startPlayback()}, 5000);
     };
 
+    function startPlayback() {
+        playback = setInterval( updatePosition(), 1000 );
+    }
+
     function updatePosition() {
+        //document.getElementById("playbackSlider").disabled = true;
         var step = document.getElementById("playbackSlider").value
         pos = [mission.coordinates[step].X/10000, mission.coordinates[step].Y/10000, mission.coordinates[step].Z/10000] ;
         var Xpos = pos[0] ;
@@ -137,10 +144,11 @@
         
     function resetPosition() {  
         document.getElementById("playbackSlider").value = 0 ;
-        playback = setInterval(function () {updatePosition() }, 1000);
+        setTimeout(() => {startPlayback()}, 5000);
     };
 
     function stopPlayback() {
+        document.getElementById("playbackSlider").disabled = false;
         clearInterval(playback);
     }
 
@@ -149,8 +157,9 @@
 </script>
 <script type="text/javascript" src="x3dom.js"></script>
 <div class="slidecontainer">
+    <p><H3><p id="demo"></p></H3></p>
     <input type="button" id="reset" value="Reset" onclick="resetPosition();" />
-    <input type="range" min="0" max="186" value="0" class="slider" id="playbackSlider">
+    <input type="range" min="0" max="169" value="0" class="slider" id="playbackSlider">
 </div>
 </body>
 </html>

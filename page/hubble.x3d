@@ -16,8 +16,8 @@
 		            skyColor="0.051 0.051 0.051"
 		            />
 		<Transform DEF="Hubble_TRANSFORM"
-		           translation="2.632066 0.000000 2.926760"
-		           scale="-2.032998 -0.737274 -0.210659"
+		           translation="263.206573 0.000000 292.675995"
+		           scale="-203.299759 -73.727364 -21.065857"
 		           rotation="-1.000000 0.000000 0.000000 1.570796"
 		           >
 			<Transform DEF="Hubble_ifs_TRANSFORM"
