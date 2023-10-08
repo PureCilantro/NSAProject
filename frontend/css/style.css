@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+ --dark-blue: #042447;
+ --electric-blue: #0A64B1;
+ --bright-blue: #16A1D8;
+ --desaturated-blue: #376189;
+ --gray-blue: #64788C;
+ --darker-violet: #120427;
+ --dark-violet: #260E6E;
+ --violet: #6733df;
+ --desaturated-violet: #7C6C84;
+ --gray-violet: #6C6484;
+ --card-light-violet: #AFA2D7;
+ --card-blue: #73a4c4;
+ --card-violet: #664AA6;
+ --card-green: #4bada2;
+ --text: var(--text-white);
+ --text-white: #fff;
+ --text-black: #222;
+ --bg: var(--dark-bg);
+ --light-bg: #eee;
+ --dark-bg: #202124;
+ --blue-bg: #1e3799;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Kanit', sans-serif;
+}
+
+footer {
+    padding: 8px;
+    text-align: center;
+    font-size: 16px;
+    color: #888;
+}
+
+.shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.shadow.hidden {
+    display: none;
+}
+
+.loading {
+    animation-direction: alternate-reverse;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-name: loading;
+}
+
+@keyframes loading {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

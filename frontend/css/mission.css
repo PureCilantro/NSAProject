@@ -1,0 +1,172 @@
+.mainContainer {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    width: 100%;
+    height: 100%;
+}
+
+.mainContainer.full {
+    display: block;
+}
+
+.ttsBtn {
+    position: absolute;
+    right: 64px;
+    top: 64px;
+    padding: 5px;
+    width: fit-content;
+    background-color: var(--bg);
+    border: 0;
+    color: var(--text);
+    font-family: 'Kanit';
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.ttsBtn:hover {
+    text-decoration: none;
+}
+
+.ttsBtn.mobile {
+    top: 16px;
+    right: 16px;
+}
+
+.sidebar {
+    position: relative;
+    padding-left: 16px;
+    height: 100%;
+    transition-duration: 0.35s;
+    transition-property: left;
+    border-right: 1px solid var(--text);
+    background-color: var(--bg);
+}
+
+.sidebar.mobile {
+    position: absolute;
+    width: 180px;
+}
+
+.sidebar.hidden {
+    position: absolute;
+    left: -180px;
+}
+
+.sidebar .sidebarToggle {
+    position: absolute;
+    right: -20px;
+    top: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--text);
+    background-color: var(--bg);
+    padding: 8px;
+    width: 30px;
+    height: 30px;
+    color: var(--text);
+    rotate: 0deg;
+    transition: rotate 0.4s;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sidebar .sidebarToggle.expand {
+    rotate: 180deg;
+    right: -30px;
+}
+
+.sidebar .sidebarToggle.hidden {
+    display: none;
+}
+
+.sidebar > a {
+    margin: 48px 0 32px 0;
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sidebar > a:hover {
+    text-decoration: underline;
+}
+
+.sidebar > .sidebarMissionList {
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    row-gap: 16px;
+}
+
+.sidebar > .sidebarMissionList > li {
+    width: fit-content;
+    text-transform: capitalize;
+}
+
+.sidebar > .sidebarMissionList > li:hover {
+    text-decoration: underline;
+}
+
+.sidebar > .sidebarMissionList > li > a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.sidebar .selected {
+    text-decoration: underline;
+}
+
+.sidebar > .themeSwitch {
+    position: absolute;
+    bottom: 16px;
+    left: 0px;
+    right: 0px;
+    display: block;
+    margin: auto;
+    width: fit-content;
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    color: var(--text);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sidebar > .themeSwitch:hover {
+    text-decoration: none;
+}
+
+.content {
+    padding: 0 48px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.content h1 {
+    margin: 40px 0 32px 0;
+    font-size: 56px;
+}
+
+.content h2 {
+    margin: 36px 0 30px 0;
+    font-size: 34px;
+}
+
+.content .loading {
+    margin: 36px auto;
+}
+
+.content p {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.content canvas {
+    display: block;
+    margin: 32px auto;
+    width: 80%;
+    height: 80%;
+    border: 1px solid white;
+}

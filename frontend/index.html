@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>α Orbital</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+    <div class="hero">
+        <h1><span class="alpha">α</span> Orbital</h1>
+        <p>An open data repository for space missions visualization</p>
+        <button id="heroBtn">explore <span class="arrow">></span></button>
+    </div>
+
+    <div id="missionSection" class="missionSection">
+        <h1 id="missionSectionTitle" class="loading">Loading...</h1>
+        <div id="missionContainer" class="missionContainer"></div>
+    </div>
+
+    <footer>
+        By Troyanos α for NASA Space Apps 2023 🚀
+    </footer>
+
+    <script>
+        async function fillMissionData() {
+            const domContainer = document.getElementById('missionContainer');
+            const domTitle = document.getElementById('missionSectionTitle');
+
+            const data = await fetch('missionList.json');
+            const json = await data.json();
+            
+            domContainer.innerHTML = '';
+            domTitle.classList.remove('loading');
+            domTitle.innerText = 'Missions';
+            
+            
+            for (const d of json) {
+                d.img = d.img ? d.img : 'placeholder.png';
+                const card = getMissionCard(d);
+                domContainer.appendChild(card);
+            }
+        }
+
+        function getMissionCard(data) {
+            const { title, desc, img, page } = data;
+            
+            const domCard = document.createElement('div');
+            domCard.classList.add('missionCard');
+            domCard.style.backgroundImage = `url('assets/img/${img}')`;
+
+            const domColorTag = document.createElement('div');
+            domColorTag.classList.add('colorTag');
+            
+            const domContent = document.createElement('div');
+            domContent.classList.add('cardContent');
+
+            const domTitle = document.createElement('h1');
+            domTitle.innerText = title;
+
+            const domDesc = document.createElement('p');
+            domDesc.textContent = desc;
+
+            domContent.append(domTitle);
+            domContent.appendChild(domDesc);
+            
+            domCard.appendChild(domColorTag);
+            domCard.appendChild(domContent);
+
+            function showDesc() {
+                domDesc.classList.remove('hidden');
+                domContent.classList.remove('collapsed');
+            }
+
+            function hideDesc() {
+                domDesc.classList.add('hidden');
+                domContent.classList.add('collapsed');
+            }
+
+            function toggleDesc() {
+                if (domDesc.classList.contains('hidden')) {
+                    showDesc();
+                } else {
+                    hideDesc();
+                }
+            }
+
+            domCard.addEventListener('mouseenter', showDesc);
+            domCard.addEventListener('mouseleave', hideDesc);
+            domCard.addEventListener('click', () => {
+                if (page) {
+                    location.assign(`/mission.html?m=${page}`);
+                }
+            });
+
+            hideDesc();
+
+            return domCard;
+        }
+
+        const domHeroBtn = document.getElementById('heroBtn');
+        const domMissionSection = document.getElementById('missionSection');
+
+        domHeroBtn.addEventListener('click', () => {
+            domMissionSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        fillMissionData()
+
+
+    </script>
+
+    <script src="js/themeSwitch.js"></script>
+</body>
+</html>

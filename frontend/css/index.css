@@ -1,0 +1,154 @@
+.hero {
+    height: 100%;
+    padding: 1px;
+    background-color: var(--dark-blue);
+    color: white;
+}
+
+.hero h1 {
+    margin: 8rem auto 5rem auto;
+    width: fit-content;
+    font-size: 124px;
+    font-family: 'Kanit', sans-serif;
+}
+
+.hero h1 .alpha {
+    font-size: 140px;
+}
+
+.hero p {
+    width: 80%;
+    margin: 3rem auto;
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Kanit', sans-serif;
+}
+
+.hero button {
+    position: relative;
+    display: block;
+    margin: 7rem auto;
+    border: none;
+    width: fit-content;
+    background-color: transparent;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Kanit', sans-serif;
+    transition-property: filter;
+    transition-duration: 0.2s;
+}
+
+.hero button .arrow {
+    position: absolute;
+    right: -26px;
+    top: -16%;
+    color: var(--violet);
+    font-size: 32px;
+    font-weight: bold;
+    transition: right 0.2s;
+}
+
+.hero button:hover {
+    filter: brightness(1.2);
+    cursor: pointer;
+}
+.hero button:hover .arrow {
+    right: -32px;
+}
+
+.missionSection {
+    padding: 48px 16px;
+}
+
+.missionSection > h1 {
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 24px;
+}
+
+.missionContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 72px;
+    row-gap: 88px;
+}
+
+.missionCard {
+    position: relative;
+    display: block;
+    width: 344px;
+    max-width: 90%;
+    height: 288px;
+    cursor: pointer;
+    transition: box-shadow, background-size 0.2s;
+    background-position: center;
+    background-size: 110%;
+    overflow: hidden;
+}
+
+.missionCard:hover {
+    box-shadow: 5px 5px 5px 0px rgba(128,128,128,0.5);
+    background-size: 120%;
+}
+
+.missionCard > .colorTag {
+    width: 100%;
+    height: 20px;
+}
+
+.missionCard:nth-child(3n+1) > .colorTag {
+    background-color: var(--card-violet);
+}
+
+.missionCard:nth-child(3n+2) > .colorTag {
+    background-color: var(--card-green);
+}
+
+.missionCard:nth-child(3n+3) > .colorTag {
+    background-color: var(--card-blue);
+}
+
+.missionCard > .cardContent {
+    position: absolute;
+    bottom: 0;
+    margin-top: 72px;
+    padding: 12px;
+    width: 100%;
+    height: 12.5rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: var(--text-black);
+    transition-property: height;
+    transition-duration: 0.2s;
+}
+
+.missionCard > .cardContent.collapsed {
+    height: 3.5rem;
+}
+
+.missionCard > .cardContent > h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.missionCard > .cardContent > p {
+    margin: 8px 0 4px 0;
+}
+
+.missionCard > .cardContent > p.hidden {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 80px;
+    }
+
+    .hero h1 .alpha {
+        font-size: 88px;
+    }
+}

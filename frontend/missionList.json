@@ -1,0 +1,43 @@
+[
+    {
+        "page": "sts31",
+        "title": "STS-31",
+        "desc": "During the final count, a valve issue occurred, which led to a hold at T-31 seconds. The valve was manually cycled to correct the problem, and the launch proceeded successfully at 7:33:50.99 a.m.c.d.t.",
+        "img": "sts31.jpg"
+    },
+    {
+        "title": "GMP",
+        "desc": "Network of satellites that provide next-generation global observations. Launched on February 27, 2014 with the objective of measuring the earth's precipitation.",
+        "img": "gmp.png"
+    },
+    {
+        "title": "CALIPSO",
+        "desc": "Cloud-Aerosol Lidar and Infrared Pathfinder Satellite. Its objective is to probe the properties of the Earth's thin clouds and aerosols and was launched on April 28, 2006.",
+        "img": "calipso.jpg"
+    },
+    {
+        "title": "Aura",
+        "desc": "It was launched on July 15, 2004, with the objective of measuring trace gases in the Earth's atmosphere.",
+        "img": "aura.jpg"
+    },
+    {
+        "title": "Terra",
+        "desc": "Terra was launched on December 18, 1999 with the purpose of studying the interactions between the atmosphere, land and oceans. ",
+        "img": "terra.jpeg"
+    },
+    {
+        "title": "OSTM",
+        "desc": "Ocean Surface Topography Mission It was launched on June 20, 2008 with the objective of measuring the height of the sea surface.",
+        "img": "ostm.png"
+    },
+    {
+        "title": "SORCE",
+        "desc": "It was launched on January 25, 2003 with the objective of measuring incoming x-ray, ultraviolet, and infrared radiation.",
+        "img": "sorce.png"
+    },
+    {
+        "title": "Landsat 8",
+        "desc": "It was launched on February 11, 2013 with the objective of providing moderate resolution measurements of regions of the Earth.",
+        "img": "landsat8.png"
+    }
+]

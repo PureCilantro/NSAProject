@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mission.css">
+</head>
+<body>
+    <div id="mainContainer" class="mainContainer">
+        <button id="ttsBtn" class="ttsBtn"></button>
+        <div id="sidebar" class="sidebar">
+            <button id="sidebarToggle" class="sidebarToggle hidden">&lt;</button>
+            <a href="/"><h1>α Orbital</h1></a>
+            <ul id="sidebarMissionList" class="sidebarMissionList"></ul>
+            <button id="themeSwitch" class="themeSwitch"></button>
+        </div>
+        <div id="content" class="content">
+            <h3 class="loading">Loading...</h3>
+        </div>
+    </div>
+
+    <script src="js/text-to-speech.js"></script>
+
+    <script>
+        const domSidebar = document.getElementById('sidebar');
+        const domSidebarToggle = document.getElementById('sidebarToggle');
+        const domMainContainer = document.getElementById('mainContainer');
+        const domTTSBtn = document.getElementById('ttsBtn')
+
+        async function fillPage() {
+            const domPage = document.getElementById('content');
+            const urlParams = new URLSearchParams(location.search);
+            let pageName = urlParams.get('m');
+
+            try {
+                if (!pageName) {
+                    throw new Error('No page specified');
+                }
+                
+                const data = await fetch(`/pages/${pageName}.html`);
+                const html = await data.text();
+
+                domPage.innerHTML = html;
+            } catch (e) {
+                domPage.innerHTML = `<h1>Select a mission from the sidebar 🚀</h1>`;
+                console.log(e.message);
+            }
+    
+        }
+
+        async function fillSidebarMissionData() {
+            const urlParams = new URLSearchParams(location.search);
+            const pageName = urlParams.get('m');
+            const domList = document.getElementById('sidebarMissionList');
+
+            const data = await fetch('missionList.json');
+            const json = await data.json();
+
+            for (const d of json) {
+                const { title, page } = d;
+                const domItem = document.createElement('li'); 
+                const domLink = document.createElement('a');
+                domLink.innerText = title;
+                domLink.href = !!page ? `mission.html?m=${page}` : 'mission.html';
+                
+                if (page && page == pageName) {
+                    domItem.classList.add('selected');
+                    document.getElementsByTagName('title')[0].textContent = d.title;
+                }
+
+                domItem.appendChild(domLink);
+                domList.appendChild(domItem);
+            }
+        }
+
+        function showSidebar() {
+            domSidebar.classList.remove('hidden');
+            domSidebarToggle.classList.remove('expand');
+        }
+
+        function hideSidebar() {
+            domSidebar.classList.add('hidden');
+            domSidebarToggle.classList.add('expand');
+        }
+
+        function toggleSidebar() {
+            if (domSidebar.classList.contains('hidden')) {
+                showSidebar();
+            } else {
+                hideSidebar();
+            }
+        }
+
+        function isMobile() {
+            return window.innerHeight > window.innerWidth;
+        }
+
+        function checkScreenSize() {
+            if (isMobile()) {
+                hideSidebar();
+                domMainContainer.classList.add('full');
+                domSidebar.classList.add('mobile');
+                domSidebarToggle.classList.remove('hidden');
+                domTTSBtn.classList.add('mobile');
+            } else {
+                showSidebar();
+                domMainContainer.classList.remove('full');
+                domSidebar.classList.remove('mobile');
+                domSidebarToggle.classList.add('hidden');
+                domTTSBtn.classList.remove('mobile');
+            }
+        }
+
+        let tts;
+
+        fillSidebarMissionData();
+        fillPage().then(() => {
+            tts = initializeTTS();
+        });
+
+        domSidebarToggle.addEventListener('click', toggleSidebar);
+
+        window.addEventListener('resize', checkScreenSize);
+
+        checkScreenSize();
+    </script>
+
+    <script src="js/themeSwitch.js"></script>
+</body>
+</html>
