@@ -15,3 +15,6 @@ This visualizer works with any mission and can be easily scaled to have houndred
 We hope to make all NASA mission launches easily avaliable to anybody that wants to know the function of the payload, how it was launched and where to, and the trajectory that it followed.
 
 We all used VSCode to program all the different parts, Git to share and work together on the code, GitHub as our project repository, a combination of HTML, CSS and JS to build the web page and an integration of X3D to build the visualizer and python to parse the GMAT output.
+
+### This project was developed by Troyanos α over 24hrs on the Nasa Space Apps Hackathon's local event at Santiago de Querétaro, Mexico
+![Sin título](https://github.com/PureCilantro/NSAProject/assets/123120513/ac36f4b7-f983-4831-a130-039812f2652b)
